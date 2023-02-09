@@ -3,10 +3,14 @@
   padding: 0;
 }
 
-html,
-body {
+:root {
   height: 100vh;
-  background-color: black;
+  background-color: #15191d;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial;
+  color: white;
+  font-size: 14px;
+  -webkit-font-smoothing: auto;
 }
 
 #app {
@@ -14,4 +18,37 @@ body {
   top: 0;
   left: 0;
   outline: none;
+}
+
+main {
+  position: absolute;
+  width: 100%;
+}
+
+/* heading */
+
+header {
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+
+  width: 100%;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+header .name {
+  position: absolute;
+  left: 12px;
+  font-weight: 500;
+}
+
+header .item {
 }
