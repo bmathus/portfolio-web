@@ -107,4 +107,5 @@ const animate = () => {
   particles.rotation.y = renderer.render(scene, camera);
   window.requestAnimationFrame(animate);
 };
+
 animate();

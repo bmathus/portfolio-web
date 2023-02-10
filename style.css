@@ -4,12 +4,13 @@
 }
 
 :root {
+  scroll-behavior: smooth;
   height: 100vh;
   background-color: #15191d;
   font-family: Inter, ui-sans-serif, system-ui, -apple-system,
     BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial;
   color: white;
-  font-size: 14px;
+  font-size: 13px;
   -webkit-font-smoothing: auto;
 }
 
@@ -23,17 +24,21 @@
 main {
   position: absolute;
   width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* heading */
 
 header {
   display: flex;
-  position: relative;
+  position: fixed;
+  top: 0;
   align-items: center;
   justify-content: center;
   gap: 12px;
-
   -webkit-backdrop-filter: blur(2px);
   backdrop-filter: blur(2px);
   background: rgba(0, 0, 0, 0.2);
@@ -51,4 +56,30 @@ header .name {
 }
 
 header .item {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* sections */
+
+main .section {
+  margin-top: 20vh;
+  margin-left: 12px;
+  margin-right: 12px;
+}
+
+main .section .heading {
+  font-size: 14px;
+}
+
+main .section .content {
+  padding: 12px;
+  max-width: 500px;
+  margin-top: 12px;
+
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
 }
