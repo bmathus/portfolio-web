@@ -81,15 +81,29 @@ renderer.setSize(sizes.width, sizes.height);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.setClearColor(new THREE.Color("#15191d"), 1);
 
-//Mouse movement
-document.addEventListener("mousemove", moveParticles);
-let mouseY = 0;
-let mouseX = 0;
-
-function moveParticles(event) {
-  mouseY = event.clientY;
-  mouseX = event.clientX;
+let t = 0;
+let rotateLeft = true;
+function rotateOnScroll() {
+  const new_t = document.body.getBoundingClientRect().top;
+  if (t > new_t) {
+    rotateLeft = true;
+  } else {
+    rotateLeft = false;
+  }
+  t = new_t;
 }
+
+document.body.onscroll = rotateOnScroll;
+
+//Mouse movement
+// document.addEventListener("mousemove", moveParticles);
+// let mouseY = 0;
+// let mouseX = 0;
+
+// function moveParticles(event) {
+//   mouseY = event.clientY;
+//   mouseX = event.clientX;
+// }
 
 //Animate with time
 const clock = new THREE.Clock();
@@ -97,14 +111,33 @@ const clock = new THREE.Clock();
 const animate = () => {
   const time = clock.getElapsedTime();
 
-  particles.rotation.y = time * 0.02;
-  //animating particles
-  if (mouseX > 0) {
-    particles.rotation.y = mouseY * (time * 0.00008);
+  // if (t !== 0) {
+  //   particles.rotation.y = t * -0.0002;
+
+  // } else {
+
+  // }
+  if (rotateLeft) {
+    particles.rotation.y = -time * 0.02 + t * 0.0001;
+  } else {
+    particles.rotation.y = time * 0.02 + t * 0.0001;
   }
 
+  // if (rotateLeft) {
+  //   particles.rotation.y = time * 0.02 + t * 0.002;
+
+  //   //particles.rotation.y = time * 0.02 * (-t * 0.002 + 1.5);
+  // } else {
+  //   //particles.rotation.y = time * 0.02 * (-t * 0.002 + 1.5);
+  // }
+
+  //animating particles
+  // if (mouseX > 0) {
+  //   particles.rotation.y = mouseY * (time * 0.00008);
+  // }
+
   //rendering every tick
-  particles.rotation.y = renderer.render(scene, camera);
+  renderer.render(scene, camera);
   window.requestAnimationFrame(animate);
 };
 
