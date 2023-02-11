@@ -81,13 +81,27 @@ renderer.setSize(sizes.width, sizes.height);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.setClearColor(new THREE.Color("#15191d"), 1);
 
+const clock = new THREE.Clock();
 let t = 0;
+let time = 0;
+let time_saved = 0;
 let rotateLeft = true;
+
 function rotateOnScroll() {
   const new_t = document.body.getBoundingClientRect().top;
   if (t > new_t) {
+    if (!rotateLeft) {
+      time_saved = time;
+      clock.stop();
+      clock.start();
+    }
     rotateLeft = true;
   } else {
+    if (rotateLeft) {
+      time_saved = time;
+      clock.stop();
+      clock.start();
+    }
     rotateLeft = false;
   }
   t = new_t;
@@ -95,21 +109,8 @@ function rotateOnScroll() {
 
 document.body.onscroll = rotateOnScroll;
 
-//Mouse movement
-// document.addEventListener("mousemove", moveParticles);
-// let mouseY = 0;
-// let mouseX = 0;
-
-// function moveParticles(event) {
-//   mouseY = event.clientY;
-//   mouseX = event.clientX;
-// }
-
-//Animate with time
-const clock = new THREE.Clock();
-
 const animate = () => {
-  const time = clock.getElapsedTime();
+  time = clock.getElapsedTime();
 
   // if (t !== 0) {
   //   particles.rotation.y = t * -0.0002;
@@ -118,9 +119,9 @@ const animate = () => {
 
   // }
   if (rotateLeft) {
-    particles.rotation.y = -time * 0.02 + t * 0.0001;
+    particles.rotation.y = (time_saved - time) * 0.02 + t * 0.0001;
   } else {
-    particles.rotation.y = time * 0.02 + t * 0.0001;
+    particles.rotation.y = (time_saved + time) * 0.02 + t * 0.0001;
   }
 
   // if (rotateLeft) {
